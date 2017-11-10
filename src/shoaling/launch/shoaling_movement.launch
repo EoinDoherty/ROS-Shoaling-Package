@@ -1,0 +1,13 @@
+<launch>
+  <!-- Adapted from the create2 launch file -->
+  <arg name="config" default="/home/ubuntu/create_ws/src/create_autonomy/ca_driver/config/default.yaml" />
+  <arg name="desc" default="true" />
+
+  <node name="ca_driver" pkg="ca_driver" type="ca_driver" output="screen">
+    <rosparam command="load" file="$(arg config)" />
+    <param name="robot_model" value="CREATE_2" />
+  </node>
+
+  <!-- Robot description -->
+  <include if="$(arg desc)" file="/home/ubuntu/create_ws/src/create_autonomy/ca_description/launch/create_2.launch" />
+</launch>
