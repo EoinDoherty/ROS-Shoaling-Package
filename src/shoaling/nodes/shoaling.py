@@ -59,5 +59,5 @@ if __name__ == "__main__":
         publisher.publish(twist)
         time.sleep(0.01)
 
-    print "Shoaling ended"
+    print "Exiting"
 
