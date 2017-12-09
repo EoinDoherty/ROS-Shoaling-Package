@@ -13,6 +13,7 @@ from math import sqrt, sin, cos
 
 import rospy
 from geometry_msgs.msg import Twist
+from std_msgs.msg import String
 import time
 
 N=1
@@ -29,10 +30,13 @@ dt = 0.01 # this is also the response latency so 10 ms
 timeSteps = [0] * int(T/dt)
 counter = 0
 
+NODE_NAME = 'iRobot_1'
 TOPIC = 'cmd_vel'
 if __name__ == "__main__":
     publisher = rospy.Publisher(TOPIC, Twist, queue_size = 1)
-    rospy.init_node('test_node')
+    rospy.init_node(NODE_NAME)
+
+    pub = rospy.Publisher(NODE_NAME + '_position', Twist, queue_size=1)
 
     speed = rospy.get_param("~speed", 1.0)
     turn = rospy.get_param("~turn", 1.0)
@@ -56,7 +60,8 @@ if __name__ == "__main__":
         twist.angular.z = (o-prevOrientation)/0.01
         prevOrientation = o
 
-        publisher.publish(twist)
+        #publisher.publish(twist)
+        pub.publish(twist)
         time.sleep(0.01)
 
     print "Exiting"
